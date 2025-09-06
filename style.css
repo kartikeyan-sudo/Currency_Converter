@@ -1,0 +1,285 @@
+/* -------------------------------------------------------
+   Currency Converter – Beautiful, responsive styling
+   Works with your provided HTML structure
+------------------------------------------------------- */
+
+/* Font (optional). Remove if you prefer system fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap");
+
+:root {
+  --bg: radial-gradient(1200px 800px at 20% 10%, #9ae6ff33, transparent 70%),
+        radial-gradient(1000px 700px at 80% 90%, #b69bff33, transparent 70%),
+        linear-gradient(180deg, #f7fafc, #edf2f7);
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-bg-solid: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #e2e8f0;
+  --ring: #5b9cff;
+  --primary: #6b5cff;
+  --primary-2: #40c9ff;
+  --success: #10b981;
+  --shadow: 0 10px 30px rgba(2, 8, 23, 0.08), 0 20px 60px rgba(2, 8, 23, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: radial-gradient(1200px 800px at 20% 10%, #0ea5e933, transparent 70%),
+          radial-gradient(1000px 700px at 80% 90%, #8b5cf633, transparent 70%),
+          linear-gradient(180deg, #0b1220, #0f172a);
+    --card-bg: rgba(15, 23, 42, 0.6);
+    --card-bg-solid: #101827;
+    --text: #e5e7eb;
+    --muted: #9aa3b2;
+    --border: #1f2a44;
+    --ring: #7aa2ff;
+    --primary: #8b5cf6;
+    --primary-2: #22d3ee;
+    --success: #34d399;
+    --shadow: 0 10px 30px rgba(2, 8, 23, 0.45), 0 20px 60px rgba(2, 8, 23, 0.35);
+  }
+}
+
+/* Reset and base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: var(--text);
+  background: var(--bg) fixed;
+  line-height: 1.5;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* Container card */
+.container {
+  width: min(680px, 100%);
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: clamp(20px, 4vw, 32px);
+  animation: floatIn 600ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Headings */
+h1 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 3.5vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.converter h2 {
+  margin: 0;
+  font-size: clamp(16px, 2.2vw, 18px);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Layout inside converter */
+.converter {
+  display: grid;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* Make "USD : <input>" sit nicely on one line */
+.converter h2:has(.currencyinit) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+}
+
+/* Inputs and selects */
+.currencyinit,
+#currency {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--card-bg-solid);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 16px;
+  line-height: 1.2;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .05s ease;
+  box-shadow: 0 1px 0 rgba(2,8,23,.02);
+}
+
+/* Number input inline sizing when placed inside h2 */
+.converter h2 > .currencyinit {
+  max-width: 220px;
+  flex: 1 1 160px;
+}
+
+/* Remove number steppers */
+.currencyinit::-webkit-outer-spin-button,
+.currencyinit::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.currencyinit[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Custom arrow for select */
+#currency {
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 13px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 36px;
+}
+
+.currencyinit:focus,
+#currency:focus {
+  outline: none;
+  border-color: color-mix(in oklab, var(--ring) 70%, var(--border));
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 15%, transparent);
+}
+
+/* Labels */
+label {
+  display: block;
+}
+
+label h2 {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Button */
+.convert {
+  cursor: pointer;
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+  box-shadow: 0 8px 20px rgba(64, 201, 255, 0.25), inset 0 1px 0 rgba(255,255,255,.25);
+  transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
+  margin-top: 8px;
+}
+
+.convert:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 10px 24px rgba(64, 201, 255, 0.28), inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+.convert:active {
+  transform: translateY(1px);
+}
+
+.convert:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 20%, transparent), 0 8px 20px rgba(64, 201, 255, 0.25);
+}
+
+/* Converted price display */
+.display {
+  margin-top: 4px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--card-bg-solid), color-mix(in oklab, var(--card-bg-solid) 70%, transparent));
+  border: 1px solid var(--border);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15);
+  font-family: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  user-select: none;
+  position: relative;
+}
+
+/* Subheading above display */
+.converter > h2:nth-last-child(2) {
+  margin-top: 6px;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Subtle shine animation when value changes (add 'pulse' class if desired) */
+@keyframes pulseGlow {
+  0% { box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 0 0 0 color-mix(in oklab, var(--ring) 25%, transparent); }
+  100% { box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 0 0 12px transparent; }
+}
+.display.pulse {
+  animation: pulseGlow 800ms ease-out 1;
+}
+
+/* Accessibility helpers */
+[aria-live="polite"] {
+  outline: none;
+}
+
+/* Subtle divider style for structure (if needed) */
+.hr {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 10px 0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 520px) {
+  .converter h2:has(.currencyinit) {
+    flex-wrap: wrap;
+  }
+  .converter h2 > .currencyinit {
+    max-width: 100%;
+  }
+}
+
+/* Fallback if :has() is unsupported */
+@supports not (selector(:has(*))) {
+  .converter h2 {
+    display: block;
+  }
+  .converter h2 .currencyinit {
+    display: block;
+    margin-top: 8px;
+  }
+}

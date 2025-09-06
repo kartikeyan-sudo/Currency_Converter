@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="style.css">
+    <title>Currency Converter</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Currency Converter</h1>
+        <div class="converter">
+           <h2>USD :  <input type="number" class="currencyinit" ></h2>
+         <label for="currency"><h2>Choose currency:</h2></label>
+<select id="currency">
+  <option value="USD">USD - US Dollar</option>
+  <option value="EUR">EUR - Euro</option>
+  <option value="INR">INR - Indian Rupee</option>
+  <option value="GBP">GBP - British Pound</option>
+  <option value="JPY">JPY - Japanese Yen</option>
+  <option value="AUD">AUD - Australian Dollar</option>
+  <option value="CAD">CAD - Canadian Dollar</option>
+  <!-- you can add as many as you want -->
+</select>
+<h2>CONVERTED PRICE</h2>
+           <h2 class="display"> 0.0 </h2>
+        </div>
+<button class="convert" onclick="fetchprice()">click to convert</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
